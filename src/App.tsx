@@ -1,5 +1,14 @@
+import { Dashboard } from "./components/Dashboard";
+import { Header } from "./components/Header";
+import { GlobalStyle } from "./styles/GlobalStyle";
 
 export function App() {
-  return <h1>Ola</h1>
+  return (
+    <>
+      <Header/>
+      <Dashboard/>
+      <GlobalStyle/>
+    </>
+  )
 }
 
