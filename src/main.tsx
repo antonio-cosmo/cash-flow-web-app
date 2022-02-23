@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createServer, Model } from 'miragejs'
+import { createServer, Model } from 'miragejs';
 import { App } from './App'
-
 createServer({
 
   models:{
@@ -44,6 +43,7 @@ createServer({
     })
   }
 })
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

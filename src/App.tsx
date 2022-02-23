@@ -6,6 +6,7 @@ import { NewTransactionModal } from './components/NewTransactionModal';
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { TransactionsProvider } from './hooks/useTransaction';
 
+
 Modal.setAppElement('#root');
 
 export function App() {
