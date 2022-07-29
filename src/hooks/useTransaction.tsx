@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { api } from "../services/api";
-
+import axios from 'axios'
+// import { api } from "../services/api";
 interface ITransaction{
   id: string,
   title: string,
@@ -29,14 +29,14 @@ export function TransactionsProvider({children}:ITransactionsProviderProps){
   
   useEffect(() => {
     (async ()=>{
-      const res = await api.get('transactions')
+      const res = await axios.get('/transactions')
       setTransactions(res.data.transactions)
     })();
 
   }, []);
 
   const createTransaction = async (transactionInput: ITransactionInput) => {
-    const res = await api.post('/transactions', {...transactionInput, createdAt: new Date});
+    const res = await axios.post('/transactions', {...transactionInput, createdAt: new Date});
     const {transaction} = res.data
 
     setTransactions(prevTransactions => [...prevTransactions, transaction]);
