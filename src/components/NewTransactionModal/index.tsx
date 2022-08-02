@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react'
-import { ArrowCircleUp, ArrowCircleDown, X } from 'phosphor-react'
 import Modal from 'react-modal'
+import { ArrowCircleUp, ArrowCircleDown, X } from 'phosphor-react'
 import { useTransactionsContext } from '../../context/Transactions'
 import { Container, TransactionTypeContainer, RadioBox } from './styles'
 

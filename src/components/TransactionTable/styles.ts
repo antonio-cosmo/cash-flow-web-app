@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const TransactionsContainer = styled.div`
   margin-top: 4rem;
 
   table {
@@ -35,19 +35,12 @@ export const Container = styled.div`
   }
 `
 
-export const Actions = styled.div`
+export const ButtonDelete = styled.button`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
 
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: none;
-    border: 0;
-
-    color: var(--text-body);
-  }
+  background: none;
+  border: 0;
+  color: var(--text-body);
 `

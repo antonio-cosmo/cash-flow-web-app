@@ -45,10 +45,8 @@ export function mockApi() {
         const transaction = schema.find('transaction', id)
         if (transaction) {
           transaction.destroy()
-          return transaction
         }
-
-        return null
+        return transaction
       })
     },
   })

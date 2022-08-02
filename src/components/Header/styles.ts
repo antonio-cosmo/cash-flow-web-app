@@ -34,6 +34,7 @@ export const Logo = styled.div`
   justify-content: center;
   align-items: center;
   gap: 14px;
+
   svg {
     background: var(--green);
     padding: 8px;

@@ -1,11 +1,11 @@
 import { Trash } from 'phosphor-react'
 import { useTransactionsContext } from '../../context/Transactions'
-import { Container, Actions } from './styles'
+import { TransactionsContainer, ButtonDelete } from './styles'
 
 export function TransactionsTable() {
   const { transactions, deleteTransaction } = useTransactionsContext()
   return (
-    <Container>
+    <TransactionsContainer>
       <table>
         <thead>
           <tr>
@@ -32,25 +32,19 @@ export function TransactionsTable() {
                 )}
               </td>
               <td>
-                <Actions>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      deleteTransaction(transaction.id)
-                    }}
-                  >
-                    <Trash size={24} />
-                  </button>
-
-                  {/* <button type='button'>
-                    <Pencil size={24}/>
-                  </button> */}
-                </Actions>
+                <ButtonDelete
+                  type="button"
+                  onClick={() => {
+                    deleteTransaction(transaction.id)
+                  }}
+                >
+                  <Trash size={24} />
+                </ButtonDelete>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-    </Container>
+    </TransactionsContainer>
   )
 }
