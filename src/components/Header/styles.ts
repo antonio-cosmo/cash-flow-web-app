@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
-export const Container = styled.header `
+export const Container = styled.header`
   background: var(--blue);
-
-`;
+`
 
 export const Content = styled.div`
   max-width: 1120px;
@@ -16,17 +15,34 @@ export const Content = styled.div`
 
   button {
     font-size: 1rem;
-    color:#fff;
+    color: #fff;
     background: var(--blue-light);
-    border:0;
+    border: 0;
     padding: 0 2rem;
     border-radius: 0.25rem;
     height: 3rem;
 
     transition: filter 0.2s;
 
-    &:hover{
+    &:hover {
       filter: brightness(0.9);
     }
   }
-`;
+`
+export const Logo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  svg {
+    background: var(--green);
+    padding: 8px;
+    border-radius: 50%;
+  }
+
+  span {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--shape);
+  }
+`

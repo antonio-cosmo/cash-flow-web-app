@@ -1,27 +1,22 @@
-import { useState } from 'react';
-import logoImg from '../../assets/logo.svg'
-import { Container, Content } from './styles';
+import { Container, Content, Logo } from './styles'
+import { CurrencyDollar } from 'phosphor-react'
 
-interface IHeaderProps{
-  onOpenNewTransactionModal: () => void;
+interface IHeaderProps {
+  onOpenNewTransactionModal: () => void
 }
 
-
-export function Header({
-  onOpenNewTransactionModal
-}: IHeaderProps) {
-  
-  return(
+export function Header({ onOpenNewTransactionModal }: IHeaderProps) {
+  return (
     <Container>
       <Content>
-        <img src={logoImg} alt="dt money"/>
-        <button 
-          type="button"
-          onClick={onOpenNewTransactionModal}
-        >
+        <Logo>
+          <CurrencyDollar size={40} weight="bold" color="var(--shape)" />
+          <span>Cash Flow</span>
+        </Logo>
+        <button type="button" onClick={onOpenNewTransactionModal}>
           Nova transação
         </button>
       </Content>
     </Container>
-  );
+  )
 }
