@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const TransactionsContainer = styled.div`
   margin-top: 4rem;
-
+  overflow-y: scroll;
   table {
     width: 100%;
     border-spacing: 0 0.5rem;

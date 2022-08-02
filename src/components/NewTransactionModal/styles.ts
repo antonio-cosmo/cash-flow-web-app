@@ -53,6 +53,12 @@ export const TransactionTypeContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
+
+  @media (max-width: 480px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `
 
 interface IRadioBoxProps {
@@ -67,7 +73,7 @@ const colors = {
 export const RadioBox = styled.button<IRadioBoxProps>`
   height: 4rem;
   border: 1px solid #d7d7d7;
-
+  padding: 0.5rem;
   background: ${(props) =>
     props.isActive
       ? transparentize(0.9, colors[props.activeColor])
@@ -91,5 +97,15 @@ export const RadioBox = styled.button<IRadioBoxProps>`
     margin-left: 1rem;
     font-size: 1rem;
     color: var(--text-title);
+  }
+
+  @media (max-width: 480px) {
+    img {
+      width: 16px;
+      height: 16px;
+    }
+    span {
+      margin-left: 0.5rem;
+    }
   }
 `

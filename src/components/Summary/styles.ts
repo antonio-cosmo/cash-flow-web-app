@@ -5,6 +5,20 @@ export const Container = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: -7rem;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 650px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
   div {
     background: var(--shape);
@@ -29,6 +43,12 @@ export const Container = styled.div`
     &.highlight-background {
       background: var(--green);
       color: #fff;
+    }
+  }
+
+  @media (max-width: 768px) {
+    div {
+      padding: 0.8rem;
     }
   }
 `
