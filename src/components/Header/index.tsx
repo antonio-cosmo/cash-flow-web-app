@@ -1,4 +1,9 @@
-import { Container, Content, Logo } from './styles'
+import {
+  HeaderContainer,
+  HeaderContent,
+  Logo,
+  NewTransactionButton,
+} from './styles'
 import { CurrencyDollar } from 'phosphor-react'
 
 interface IHeaderProps {
@@ -7,16 +12,16 @@ interface IHeaderProps {
 
 export function Header({ handleNewTransactionModal }: IHeaderProps) {
   return (
-    <Container>
-      <Content>
+    <HeaderContainer>
+      <HeaderContent>
         <Logo>
-          <CurrencyDollar size={40} weight="bold" color="var(--shape)" />
+          <CurrencyDollar size={40} weight="bold" color="white" />
           <span>Cash Flow</span>
         </Logo>
-        <button type="button" onClick={handleNewTransactionModal}>
+        <NewTransactionButton type="button" onClick={handleNewTransactionModal}>
           Nova transação
-        </button>
-      </Content>
-    </Container>
+        </NewTransactionButton>
+      </HeaderContent>
+    </HeaderContainer>
   )
 }

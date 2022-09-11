@@ -1,6 +1,6 @@
 import { ArrowCircleUp, ArrowCircleDown, CurrencyDollar } from 'phosphor-react'
 import { useTransactionsContext } from '../../context/Transactions'
-import { Container } from './styles'
+import { SummaryContainer, SummaryCard } from './styles'
 
 export function Summary() {
   const { transactions } = useTransactionsContext()
@@ -25,11 +25,11 @@ export function Summary() {
   )
 
   return (
-    <Container>
-      <div>
+    <SummaryContainer>
+      <SummaryCard>
         <header>
-          <p>Entradas</p>
-          <ArrowCircleUp size={36} weight="light" color="var(--green)" />
+          <span>Entradas</span>
+          <ArrowCircleUp size={36} weight="light" color="#00b17e" />
         </header>
         <strong>
           {new Intl.NumberFormat('pt-BR', {
@@ -37,12 +37,12 @@ export function Summary() {
             currency: 'BRL',
           }).format(summary.deposits)}
         </strong>
-      </div>
+      </SummaryCard>
 
-      <div>
+      <SummaryCard>
         <header>
-          <p>Saidas</p>
-          <ArrowCircleDown size={36} weight="light" color="var(--red)" />
+          <span>Saidas</span>
+          <ArrowCircleDown size={36} weight="light" color="#f75a68" />
         </header>
         <strong>
           {new Intl.NumberFormat('pt-BR', {
@@ -50,12 +50,12 @@ export function Summary() {
             currency: 'BRL',
           }).format(summary.withdraws)}
         </strong>
-      </div>
+      </SummaryCard>
 
-      <div className="highlight-background">
+      <SummaryCard variant="green">
         <header>
-          <p>Total</p>
-          <CurrencyDollar size={36} weight="light" color="var(--shape)" />
+          <span>Total</span>
+          <CurrencyDollar size={36} weight="light" color="#00b17e" />
         </header>
         <strong>
           {new Intl.NumberFormat('pt-BR', {
@@ -63,7 +63,7 @@ export function Summary() {
             currency: 'BRL',
           }).format(summary.total)}
         </strong>
-      </div>
-    </Container>
+      </SummaryCard>
+    </SummaryContainer>
   )
 }
