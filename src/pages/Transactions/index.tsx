@@ -10,6 +10,7 @@ import { useTransactionsContext } from '../../context/Transactions'
 import { Summary } from '../../components/Summary'
 import { Header } from '../../components/Header'
 import { useState } from 'react'
+import { SearchForm } from './components/SearchForm'
 export function Transactions() {
   const { transactions, deleteTransaction } = useTransactionsContext()
   const [transactionModal, setTransactionModal] = useState(false)
@@ -26,6 +27,7 @@ export function Transactions() {
       <Header handleNewTransactionModal={newTransactionModal} />
       <Summary />
       <TransactionsContainer>
+        <SearchForm />
         <TransactionsTable>
           <tbody>
             {transactions.map((transaction) => (
