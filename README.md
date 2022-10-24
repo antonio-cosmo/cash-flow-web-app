@@ -6,7 +6,7 @@ Controle de caixa
 
 ## Demonstração
 
-[https://app-cash-flow.vercel.app/](https://app-cash-flow.vercel.app/)
+[https://app-cash.vercel.app/](https://app-cash.vercel.app/)
 
 
 ## Funcionalidades
