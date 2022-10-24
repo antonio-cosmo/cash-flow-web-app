@@ -5,26 +5,16 @@ import {
   TransactionsTable,
   PriceHighLight,
 } from './styles'
-import { NewTransactionModal } from '../../components/NewTransactionModal'
 import { useTransactionsContext } from '../../context/Transactions'
 import { Summary } from '../../components/Summary'
 import { Header } from '../../components/Header'
-import { useState } from 'react'
 import { SearchForm } from './components/SearchForm'
 export function Transactions() {
   const { transactions, deleteTransaction } = useTransactionsContext()
-  const [transactionModal, setTransactionModal] = useState(false)
 
-  const newTransactionModal = () => {
-    setTransactionModal(true)
-  }
-
-  const closeNewTransactionModal = () => {
-    setTransactionModal(false)
-  }
   return (
     <div>
-      <Header handleNewTransactionModal={newTransactionModal} />
+      <Header/>
       <Summary />
       <TransactionsContainer>
         <SearchForm />
@@ -66,11 +56,6 @@ export function Transactions() {
           </tbody>
         </TransactionsTable>
       </TransactionsContainer>
-
-      <NewTransactionModal
-        isOpen={transactionModal}
-        onRequestClose={closeNewTransactionModal}
-      />
     </div>
   )
 }
