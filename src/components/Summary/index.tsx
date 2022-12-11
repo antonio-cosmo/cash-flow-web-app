@@ -1,28 +1,11 @@
 import { ArrowCircleUp, ArrowCircleDown, CurrencyDollar } from 'phosphor-react'
-import { useTransactionsContext } from '../../context/Transactions'
+import { useSummary } from '../../hooks/useSummary'
+import { formatPrice } from '../../util/format'
 import { SummaryContainer, SummaryCard } from './styles'
 
 export function Summary() {
-  const { transactions } = useTransactionsContext()
 
-  const summary = transactions.reduce(
-    (acc, transaction) => {
-      if (transaction.type === 'deposit') {
-        acc.deposits += transaction.amount
-        acc.total += transaction.amount
-      } else {
-        acc.withdraws -= transaction.amount
-        acc.total -= transaction.amount
-      }
-
-      return acc
-    },
-    {
-      deposits: 0,
-      withdraws: 0,
-      total: 0,
-    },
-  )
+  const summary = useSummary()
 
   return (
     <SummaryContainer>
@@ -32,10 +15,7 @@ export function Summary() {
           <ArrowCircleUp size={36} weight="light" color="#00b17e" />
         </header>
         <strong>
-          {new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }).format(summary.deposits)}
+          {formatPrice.format(summary.deposits)}
         </strong>
       </SummaryCard>
 
@@ -45,10 +25,7 @@ export function Summary() {
           <ArrowCircleDown size={36} weight="light" color="#f75a68" />
         </header>
         <strong>
-          {new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }).format(summary.withdraws)}
+          {formatPrice.format(summary.withdraws)}
         </strong>
       </SummaryCard>
 
@@ -58,10 +35,7 @@ export function Summary() {
           <CurrencyDollar size={36} weight="light" color="#00b17e" />
         </header>
         <strong>
-          {new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }).format(summary.total)}
+          {formatPrice.format(summary.total)}
         </strong>
       </SummaryCard>
     </SummaryContainer>

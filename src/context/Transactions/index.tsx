@@ -10,7 +10,7 @@ import axios from 'axios'
 interface ITransaction {
   id: string
   title: string
-  type: string
+  type: 'income' | 'outcome'
   category: string
   amount: number
   createdAt: string
@@ -26,20 +26,36 @@ interface ITransactionsContextData {
   transactions: ITransaction[]
   createTransaction: (transaction: ITransactionInput) => Promise<void>
   deleteTransaction: (id: string) => Promise<void>
+  fetchTransactions: (query?: string)=> Promise<void>
 }
 
-const TransactionsContext = createContext<ITransactionsContextData>(
+const TransactionsContext = createContext(
   {} as ITransactionsContextData,
 )
 
 export function TransactionsProvider({ children }: ITransactionsProviderProps) {
   const [transactions, setTransactions] = useState<ITransaction[]>([])
+  
+  const fetchTransactions = async(query?: string) => {
+    const res = await axios.get('/api/transactions')
+    const transactionsResponse = res.data.transactions as ITransaction[]
+    if(query){
+  
+      const transactionsSearch = transactionsResponse.filter(transaction => {
+        return transaction.title.includes(query) || transaction.category.includes(query)
+      })
+
+      setTransactions(transactionsSearch)
+      return
+    }
+    
+    setTransactions(transactionsResponse)
+    
+    
+  }
 
   useEffect(() => {
-    ;(async () => {
-      const res = await axios.get('/api/transactions')
-      setTransactions(res.data.transactions)
-    })()
+    fetchTransactions()
   }, [])
 
   const createTransaction = async (transactionInput: ITransactionInput) => {
@@ -65,7 +81,7 @@ export function TransactionsProvider({ children }: ITransactionsProviderProps) {
 
   return (
     <TransactionsContext.Provider
-      value={{ transactions, createTransaction, deleteTransaction }}
+      value={{ transactions, createTransaction, deleteTransaction, fetchTransactions }}
     >
       {children}
     </TransactionsContext.Provider>

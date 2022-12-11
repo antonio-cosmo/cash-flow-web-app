@@ -1,34 +1,49 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { FormEvent, useState } from 'react'
+import * as z from 'zod'
 import { ArrowCircleUp, ArrowCircleDown, X } from 'phosphor-react'
 import { useTransactionsContext } from '../../context/Transactions'
 import { Content, Overlay, Close,TransactionTypeContainer, RadioBox } from './styles'
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 interface INewTransactionModalProps {
   handlCloseModal: () => void
 }
 
+const transactionSchema = z.object({
+  title: z.string(),
+  amount: z.number(),
+  category: z.string(),
+  type: z.enum(['income', 'outcome']),
+})
+
+type transactionFormaData = z.infer<typeof transactionSchema>
 
 export function NewTransactionModal({handlCloseModal}:INewTransactionModalProps) {
+  
   const { createTransaction } = useTransactionsContext()
-  const [title, setTitle] = useState('')
-  const [amount, setAmount] = useState(0)
-  const [category, setCategory] = useState('')
-  const [type, setType] = useState('deposit')
 
-  const handleCreateNewTransaction = async (event: FormEvent) => {
-    event.preventDefault()
+  const transactionForm = useForm<transactionFormaData>({
+    resolver: zodResolver(transactionSchema),
+    defaultValues:{
+      type: 'income'
+    }
+  })
+
+  const {control ,register, handleSubmit, reset, watch} = transactionForm
+  const watchInputs = watch()
+
+  const handleCreateNewTransaction = async (data: transactionFormaData) => {
+    const {title, category, amount, type} = data
     await createTransaction({
       title,
-      amount,
       category,
-      type,
+      amount,
+      type
     })
-    setTitle('')
-    setAmount(0)
-    setCategory('')
-    setType('deposit')
+    reset()
     handlCloseModal()
+
 
   }
 
@@ -38,49 +53,55 @@ export function NewTransactionModal({handlCloseModal}:INewTransactionModalProps)
         <Overlay/>
         <Content>
             <Dialog.Title> Cadastrar transação</Dialog.Title>
-            <form onSubmit={handleCreateNewTransaction}>
+            <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
                 <input
                 type="text"
                 placeholder="Titulo"
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
+                {...register('title')}
                 />
 
                 <input
                 type="number"
                 placeholder="Valor"
-                value={amount}
-                min={0}
-                onChange={(event) => setAmount(Number(event.target.value))}
+                {...register('amount',{valueAsNumber: true, min:0})}
+
                 />
+                <Controller
+                  control={control}
+                  name='type'
+                  render={({field}) => {
+                    return (
+                      <TransactionTypeContainer 
+                        onValueChange={field.onChange} 
+                        value={field.value}>
+                        <RadioBox
+                            type="button"
+                            variant = 'income'
+                            value='income'
+                        >
+                            <ArrowCircleUp size={32} weight="light"  />
+                            <span>Entrada</span>
+                        </RadioBox>
 
-                <TransactionTypeContainer>
-                  <RadioBox
-                      type="button"
-                      onClick={() => setType('deposit')}
-                      variant = 'income'
-                      value='income'
-                  >
-                      <ArrowCircleUp size={32} weight="light"  />
-                      <span>Entrada</span>
-                  </RadioBox>
-
-                  <RadioBox
-                      type="button"
-                      onClick={() => setType('withdraw')}
-                      variant='outcome'
-                      value='outcome'
-                  >
-                      <ArrowCircleDown size={32} weight="light" />
-                      <span>Saida</span>
-                  </RadioBox>
-                </TransactionTypeContainer>
+                        <RadioBox
+                            type="button"
+                            variant='outcome'
+                            value='outcome'
+                        >
+                            <ArrowCircleDown size={32} weight="light" />
+                            <span>Saida</span>
+                        </RadioBox>
+                      </TransactionTypeContainer>
+                    )
+                  }}
+                />
+                
 
                 <input
                 type="text"
                 placeholder="Categoria"
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
+                {...register('category')}
+
                 />
                 <button type="submit">Cadastrar</button>
             </form>

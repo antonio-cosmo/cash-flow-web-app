@@ -1,25 +1,33 @@
-import { createServer, Model } from 'miragejs'
-
+import { createServer, Model, Serializer } from 'miragejs'
+interface ITransaction{
+  id: number
+  title: string
+  type: 'income'| 'outcome',
+  category: string,
+  amount: number,
+  createdAt: Date,
+}
 export function mockApi() {
   createServer({
     models: {
       transaction: Model,
     },
+
     seeds(server) {
       server.db.loadData({
         transactions: [
           {
             id: 1,
             title: 'Freelance de website',
-            type: 'deposit',
+            type: 'income',
             category: 'Dev',
             amount: 4000,
             createdAt: new Date(),
           },
           {
             id: 2,
-            title: 'Alugel',
-            type: 'withdraw',
+            title: 'Aluguel',
+            type: 'outcome',
             category: 'Casa',
             amount: 400,
             createdAt: new Date(),
@@ -32,7 +40,8 @@ export function mockApi() {
       this.namespace = 'api'
 
       this.get('/transactions', () => {
-        return this.schema.all('transaction')
+        return this.schema.all('transaction') 
+        
       })
 
       this.post('/transactions', (schema, request) => {

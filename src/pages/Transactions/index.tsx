@@ -9,9 +9,10 @@ import { useTransactionsContext } from '../../context/Transactions'
 import { Summary } from '../../components/Summary'
 import { Header } from '../../components/Header'
 import { SearchForm } from './components/SearchForm'
+import { formatDate, formatPrice } from '../../util/format'
 export function Transactions() {
   const { transactions, deleteTransaction } = useTransactionsContext()
-
+  
   return (
     <div>
       <Header/>
@@ -25,21 +26,14 @@ export function Transactions() {
                 <td>{transaction.title}</td>
                 <td>
                   <PriceHighLight
-                    variant={
-                      transaction.type === 'deposit' ? 'income' : 'outcome'
-                    }
+                    variant={ transaction.type}
                   >
-                    {new Intl.NumberFormat('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    }).format(transaction.amount)}
+                    {transaction.type === 'outcome' && '- '}{formatPrice.format(transaction.amount)}
                   </PriceHighLight>
                 </td>
                 <td>{transaction.category}</td>
                 <td>
-                  {new Intl.DateTimeFormat('pt-BR').format(
-                    new Date(transaction.createdAt),
-                  )}
+                  {formatDate.format(new Date(transaction.createdAt))}
                 </td>
                 <td>
                   <ButtonDelete
@@ -48,7 +42,7 @@ export function Transactions() {
                       deleteTransaction(transaction.id)
                     }}
                   >
-                    <Trash size={24} />
+                    <Trash size={24} color="#f75a68"/>
                   </ButtonDelete>
                 </td>
               </tr>

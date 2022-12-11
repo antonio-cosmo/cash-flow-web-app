@@ -23,7 +23,7 @@ export function Header() {
       <HeaderContent>
         <Logo>
           <CurrencyDollar size={40} weight="bold" color="white" />
-          <span>Cash Flow</span>
+          <span>dev.cash</span>
         </Logo>
 
         <Dialog.Root open={openModal} onOpenChange={handlCloseModal}>
