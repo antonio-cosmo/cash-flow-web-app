@@ -1,9 +1,11 @@
+import { useMemo } from "react"
 import { useTransactionsContext } from "../context/Transactions"
 
-export function useSummary(){
-    const { transactions } = useTransactionsContext()
+export function useSummary() {
+  const { transactions } = useTransactionsContext()
 
-    const summary = transactions.reduce(
+  const summary = useMemo(() => {
+    return transactions.reduce(
       (acc, transaction) => {
         if (transaction.type === 'income') {
           acc.deposits += transaction.amount
@@ -12,7 +14,7 @@ export function useSummary(){
           acc.withdraws -= transaction.amount
           acc.total -= transaction.amount
         }
-  
+
         return acc
       },
       {
@@ -21,6 +23,9 @@ export function useSummary(){
         total: 0,
       },
     )
+  }, [transactions])
 
-    return summary
+
+
+  return summary
 }
